@@ -1,0 +1,6 @@
+{
+  "name": "Offer Letter Management System",
+  "description": "Enterprise-grade Offer Letter Management System with candidate tracking, professional template marketplace, rich Canva-like template editor, multi-role approval workflows, and interactive PDF generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
