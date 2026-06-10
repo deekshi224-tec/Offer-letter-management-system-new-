@@ -51,6 +51,8 @@ export default function TemplateEditor({
 
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   const [autoSaveCounter, setAutoSaveCounter] = useState(0);
+  const [lastSavedAt, setLastSavedAt] = useState('');
+
 
   // States for dynamic editor fields mapping
   const updateField = (field: keyof Template, value: any) => {
@@ -88,9 +90,10 @@ export default function TemplateEditor({
     setIsAutoSaving(true);
     // Simulating writing to DB
     setTimeout(() => {
-      setIsAutoSaving(false);
-      setAutoSaveCounter(c => c + 1);
-    }, 1500);
+  setIsAutoSaving(false);
+  setAutoSaveCounter(c => c + 1);
+  setLastSavedAt(new Date().toLocaleTimeString());
+}, 1500);
   };
 
   // Add a signature block to list
@@ -198,15 +201,24 @@ export default function TemplateEditor({
 
         {/* Buttons */}
         <div className="flex flex-wrap items-center gap-2">
-          {isAutoSaving ? (
-            <span className="text-xs text-violet-400 flex items-center gap-1.5 bg-violet-950/40 border border-violet-900/30 px-3 py-1.5 rounded-lg font-mono">
-              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-              Saves compiling...
-            </span>
-          ) : (
-            <span className="text-[11px] text-slate-500 font-mono">
-              Auto Saved changes ({autoSaveCounter})
-            </span>
+  {isAutoSaving ? (
+    <span className="text-xs text-violet-400 flex items-center gap-1.5 bg-violet-950/40 border border-violet-900/30 px-3 py-1.5 rounded-lg font-mono">
+      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+      Saves compiling...
+    </span>
+  ) : (
+    <div className="text-right">
+  <span className="text-[11px] text-slate-500 font-mono block">
+    Auto Saved changes ({autoSaveCounter})
+  </span>
+
+  {lastSavedAt && (
+    <span className="text-[10px] text-emerald-400 font-mono">
+      Last Saved: {lastSavedAt}
+    </span>
+  )}
+</div>
+  )}
           )}
 
           <button
